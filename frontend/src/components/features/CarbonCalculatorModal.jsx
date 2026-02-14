@@ -18,6 +18,7 @@ const CarbonCalculatorModal = ({ isOpen, onClose }) => {
     if (isOpen) {
       calculateCarbon();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wasteAmount, energyUsage, isOpen]);
 
   const calculateCarbon = async () => {
