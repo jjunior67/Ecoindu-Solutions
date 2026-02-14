@@ -91,7 +91,7 @@ const ContactSection = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-primary mb-1">Email</div>
-                      <div className="text-muted-foreground">contato@ecoindus.com.br</div>
+                      <div className="text-muted-foreground">ecoindusolutions@gmail.com</div>
                     </div>
                   </div>
 
@@ -101,7 +101,7 @@ const ContactSection = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-primary mb-1">Telefone</div>
-                      <div className="text-muted-foreground">+55 (67) 9999-9999</div>
+                      <div className="text-muted-foreground">+55 (67) 99303-5810</div>
                     </div>
                   </div>
 
