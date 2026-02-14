@@ -1,0 +1,176 @@
+{
+  "brand_identity": {
+    "name": "EcoIndus Solutions",
+    "tagline": "Turning Industrial Liability into Sustainable Asset",
+    "tone": "Premium, Expert, Grounded, Technical, Forward-Looking",
+    "archetype": "The Sage & The Creator",
+    "theme_mode": "light",
+    "keywords": ["Efficiency", "Circular Economy", "Carbon Capture", "Engineering", "Transformation"]
+  },
+  "typography": {
+    "primary_font": "Syne",
+    "secondary_font": "Manrope",
+    "font_weights": {
+      "heading": "700",
+      "subheading": "600",
+      "body": "400",
+      "accent": "500"
+    },
+    "heading_style": "tracking-tight leading-[1.1] font-bold text-primary",
+    "body_style": "tracking-normal leading-relaxed text-muted-foreground",
+    "caption_style": "uppercase tracking-[0.2em] text-xs font-semibold text-accent-foreground"
+  },
+  "colors": {
+    "palette": {
+      "primary": "#1A3C34",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#F1F5F9",
+      "secondary_foreground": "#0F172A",
+      "accent": "#4ADE80",
+      "accent_foreground": "#064E3B",
+      "background": "#FAFAF9",
+      "foreground": "#1E293B",
+      "card": "#FFFFFF",
+      "card_foreground": "#1E293B",
+      "border": "#E2E8F0",
+      "input": "#E2E8F0",
+      "ring": "#1A3C34"
+    },
+    "utility_colors": {
+      "industrial_orange": "#F97316",
+      "carbon_grey": "#334155",
+      "success": "#22C55E",
+      "warning": "#EAB308",
+      "error": "#EF4444"
+    },
+    "gradients": {
+      "hero_overlay": "linear-gradient(to bottom, rgba(26, 60, 52, 0.4), rgba(26, 60, 52, 0.9))",
+      "glass_surface": "linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1))"
+    }
+  },
+  "layout_strategy": {
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "section_spacing": "py-24 md:py-32",
+    "grid_system": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12",
+    "bento_grid": {
+      "hero_card": "col-span-1 md:col-span-8 row-span-2",
+      "standard_card": "col-span-1 md:col-span-4 row-span-1",
+      "tall_card": "col-span-1 md:col-span-4 row-span-2",
+      "wide_card": "col-span-1 md:col-span-6 row-span-1"
+    }
+  },
+  "components": {
+    "HeroSection": {
+      "path": "/app/frontend/src/components/landing/HeroSection.jsx",
+      "type": "Custom",
+      "visual_style": "Split layout or Immersive Background. Left: Strong Typography + CTA. Right: Abstract Engineering Visual or High-Quality Industry Photo.",
+      "interaction": "Parallax scroll effect on background image. Staggered text entrance.",
+      "content_guidelines": "Headline must be punchy (e.g., 'Decarbonize Profitably'). Subhead lists credentials (UFMS, Masters)."
+    },
+    "ServicesBento": {
+      "path": "/app/frontend/src/components/landing/ServicesBento.jsx",
+      "type": "Custom Grid",
+      "visual_style": "Bento Grid layout using Tailwind. Cards have 'Technical' borders (1px solid border-border/60). Hover state: border-primary/50 and slight lift.",
+      "items": [
+        "Energy Efficiency Audit",
+        "Plastic Recycling Lines (Logistics to Pellets)",
+        "Carbon Capture Certifications",
+        "Green Production Line Construction",
+        "Waste-to-Value Consulting"
+      ]
+    },
+    "CarbonCalculatorModal": {
+      "path": "/app/frontend/src/components/features/CarbonCalculatorModal.jsx",
+      "type": "Shadcn Dialog",
+      "visual_style": "Glassmorphism. Clean sliders for 'Current Waste', 'Energy Usage'. Visual output: 'Trees Saved' or 'Carbon Credits Earned'.",
+      "interaction": "Real-time updates as sliders move. Smooth transitions."
+    },
+    "ProjectGallery": {
+      "path": "/app/frontend/src/components/landing/ProjectGallery.jsx",
+      "type": "Masonry Grid",
+      "visual_style": "Asymmetrical masonry. Images have zoom-on-hover. Overlay text appears on hover with project stats.",
+      "items": ["Green Asphalt", "Urban Furniture", "Industrial Retrofit"]
+    },
+    "ConsultationForm": {
+      "path": "/app/frontend/src/components/forms/ConsultationForm.jsx",
+      "type": "Shadcn Form",
+      "visual_style": "Minimalist, single column. Focus on 'Schedule Visit'. Date picker (Calendar) is prominent.",
+      "fields": ["Company Name", "Industry", "Project Type", "Proposed Date"]
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Subtle grain overlay (opacity 0.03) on all solid backgrounds to reduce digital flatness.",
+    "borders": "1px solid rgba(0,0,0,0.08) for cards. 1px solid rgba(26,60,52, 0.1) for primary containers.",
+    "shadows": "shadow-[0_8px_30px_rgb(0,0,0,0.04)] for floating elements.",
+    "icons": "Phosphor Icons (Light weight) or Lucide (Stroke 1.5).",
+    "corner_radius": "rounded-none or rounded-sm for an 'Industrial/Precision' feel. Max rounded-md."
+  },
+  "motion": {
+    "entrance": "framer-motion: initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut' }}",
+    "hover": "transform transition-all duration-300 hover:-translate-y-1",
+    "reduced_motion": "respect-media-query"
+  },
+  "images": {
+    "hero_bg": {
+      "url": "https://images.unsplash.com/photo-1759812765703-f5f98fe1c854?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwZW5naW5lZXIlMjByZW5ld2FibGUlMjBlbmVyZ3klMjBwbGFudHxlbnwwfHx8fDE3NzEwODMxNDB8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Industrial plant in nature",
+      "usage": "Hero background or main visual"
+    },
+    "engineer_portrait": {
+      "url": "https://images.unsplash.com/photo-1758574697253-25a1bad14666?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxlbmdpbmVlciUyMHdpdGglMjBoYXJkJTIwaGF0JTIwYW5kJTIwdGFibGV0fGVufDB8fHx8MTc3MTA4MzE1MXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Engineer on site",
+      "usage": "About section or Consultation CTA"
+    },
+    "recycling_process": {
+      "url": "https://images.unsplash.com/photo-1607854364114-f2c2b14f8bb1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxwbGFzdGljJTIwcmVjeWNsaW5nJTIwcGVsbGV0cyUyMGNsb3NlJTIwdXB8ZW58MHx8fHwxNzcxMDgzMTQ5fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Plastic recycling materials",
+      "usage": "Services card: Plastic Recycling"
+    },
+    "carbon_tech": {
+      "url": "https://images.unsplash.com/photo-1562670766-fe70eee642e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwxfHxjYXJib24lMjBjYXB0dXJlJTIwZmFjaWxpdHklMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc3MTA4MzE0MXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Modern clean industrial facility",
+      "usage": "Services card: Carbon Capture"
+    },
+    "solar_energy": {
+      "url": "https://images.unsplash.com/photo-1770121696398-6084654c1364?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVscyUyMG9uJTIwZmFjdG9yeSUyMHJvb2Z8ZW58MHx8fHwxNzcxMDgzMTUwfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Solar panels on roof",
+      "usage": "Services card: Energy Efficiency"
+    },
+    "green_infrastructure": {
+      "url": "https://images.unsplash.com/photo-1762344093522-9a83cc3da323?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzl8MHwxfHNlYXJjaHwzfHxyb2FkJTIwY29uc3RydWN0aW9uJTIwYXNwaGFsdCUyMG1vZGVybnxlbnwwfHx8fDE3NzEwODMxNTJ8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Modern road infrastructure",
+      "usage": "Projects: Green Asphalt"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Implement a 'Light Mode' first aesthetic. Use the Pine Green (#1A3C34) as the primary text/brand color, not just a button color.",
+    "For the 'Services' section, DO NOT use a standard 3-column grid. Use the 'Bento Grid' layout defined in layout_strategy.",
+    "The 'Carbon Calculator' MUST be a modal (Dialog) triggered from a CTA, not an on-page form.",
+    "Use 'Syne' font for all Headings (h1, h2, h3) and 'Manrope' for body text. Import them via Google Fonts in index.html or CSS.",
+    "Ensure the 'Contact' section prioritizes 'Schedule a Visit' over 'Send Message'.",
+    "Use the provided image URLs strictly. Do not use placeholders.",
+    "For the 'About' section, highlight the 'UFMS Masters in Energy Efficiency' credential prominently.",
+    "Make sure the 'Plastic Recycling' service highlights the 'Logistics to Production Line' full-cycle capability."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Create new components that match the style and conventions of existing components when needed",
+    "Examine existing components to understand the project's component patterns before creating new ones",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})",
+    "Use sonner for toasts. Sonner component are located in /app/src/components/ui/sonner.tsx"
+  ]
+}
