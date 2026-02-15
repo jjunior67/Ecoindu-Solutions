@@ -139,7 +139,7 @@ const ContactSection = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="company_name">Nome da Empresa *</Label>
+                    <Label htmlFor="company_name">Nome da Empresa </Label>
                     <Input
                       id="company_name"
                       data-testid="input-company-name"
@@ -196,7 +196,7 @@ const ContactSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="industry">Setor Industrial *</Label>
+                    <Label htmlFor="industry">Setor Industrial </Label>
                     <Select value={formData.industry} onValueChange={(value) => handleChange('industry', value)} required>
                       <SelectTrigger data-testid="select-industry" className="mt-2">
                         <SelectValue placeholder="Selecione..." />

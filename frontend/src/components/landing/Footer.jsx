@@ -32,8 +32,8 @@ const Footer = () => {
           <div>
             <h3 className="font-bold mb-4">Contato</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>contato@ecoindus.com.br</li>
-              <li>+55 (67) 9999-9999</li>
+              <li>ecoindusolutions@gmail.com</li>
+              <li>+55 (67) 99303-5810</li>
               <li>Campo Grande, MS - Brasil</li>
             </ul>
           </div>
