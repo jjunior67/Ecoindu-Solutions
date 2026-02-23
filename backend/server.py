@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -10,7 +10,6 @@ from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -19,12 +18,20 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
+# Create the main app
 app = FastAPI()
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
-
 
 # Define Models
 class ConsultationRequest(BaseModel):
@@ -59,7 +66,7 @@ class CarbonCalculation(BaseModel):
     trees_equivalent: int
     revenue_potential: float
 
-
+# Rotas existentes
 @api_router.get("/")
 async def root():
     return {"message": "EcoIndus Solutions API"}
@@ -89,6 +96,7 @@ async def get_consultation_requests():
     
     return consultations
 
+# Rota de cálculo de carbono (versão 1 - compatível com o formato original)
 @api_router.post("/calculate-carbon")
 async def calculate_carbon(waste_amount: float, energy_usage: float):
     """Calculate carbon savings and potential revenue"""
@@ -105,18 +113,44 @@ async def calculate_carbon(waste_amount: float, energy_usage: float):
         revenue_potential=round(revenue_potential, 2)
     )
 
+# Rota de cálculo de carbono (versão 2 - formato que o frontend espera)
+@api_router.post("/calcular-carbono")
+async def calcular_carbono(
+    waste_amount: float = Query(..., description="Quantidade de resíduos em kg"),
+    energy_usage: float = Query(..., description="Consumo de energia em kWh")
+):
+    """
+    Calcula a pegada de carbono baseado em resíduos e consumo de energia
+    """
+    # Fórmula simples para teste (ajuste conforme necessário)
+    fator_residuo = 2.5  # kg CO2 por kg de resíduo
+    fator_energia = 0.4   # kg CO2 por kWh
+    
+    resultado = (waste_amount * fator_residuo) + (energy_usage * fator_energia)
+    
+    return {
+        "carbonFootprint": round(resultado, 2),
+        "unit": "kg CO₂e",
+        "message": f"Emissão estimada: {round(resultado, 2)} kg CO₂e",
+        "details": {
+            "from_waste": round(waste_amount * fator_residuo, 2),
+            "from_energy": round(energy_usage * fator_energia, 2)
+        }
+    }
+
+# Versão GET para teste direto no navegador
+@api_router.get("/calcular-carbono")
+async def calcular_carbono_get(
+    waste_amount: float = Query(..., description="Quantidade de resíduos em kg"),
+    energy_usage: float = Query(..., description="Consumo de energia em kWh")
+):
+    """Versão GET para teste direto no navegador"""
+    return await calcular_carbono(waste_amount, energy_usage)
+
 # Include the router in the main app
 app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Configure logging
+# Configurar logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -125,4 +159,11 @@ logger = logging.getLogger(__name__)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    """Fecha a conexão com o MongoDB ao desligar"""
     client.close()
+
+# Ponto de entrada para executar diretamente
+if __name__ == "__main__":
+    import uvicorn
+    print("🚀 Servidor iniciando em http://127.0.0.1:8000")
+    uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)

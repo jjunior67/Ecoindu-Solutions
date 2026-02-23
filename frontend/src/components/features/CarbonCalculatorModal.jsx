@@ -21,22 +21,38 @@ const CarbonCalculatorModal = ({ isOpen, onClose }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wasteAmount, energyUsage, isOpen]);
 
-  const calculateCarbon = async () => {
-    setIsCalculating(true);
-    try {
-      const response = await axios.post(`${BACKEND_URL}/api/calculate-carbon`, null, {
-        params: {
-          waste_amount: wasteAmount,
-          energy_usage: energyUsage
-        }
-      });
-      setResults(response.data);
-    } catch (error) {
-      console.error('Error calculating carbon:', error);
-    } finally {
-      setIsCalculating(false);
-    }
-  };
+const calculateCarbon = async () => {
+  setIsCalculating(true);
+  try {
+    // IMPORTANTE: Em desenvolvimento, backend roda na porta 8000
+    // Em produção (Vercel), usa a mesma URL
+    const baseUrl = process.env.NODE_ENV === 'development' 
+      ? 'http://localhost:8000'  // Porta do backend
+      : window.location.origin;    // URL do Vercel em produção
+    
+    // PRIMEiro define a URL
+    const url = `${baseUrl}/api/calcular-carbono?waste_amount=${wasteAmount}&energy_usage=${energyUsage}`;
+    
+    // DEPOIS usa no console.log
+    console.log('Chamando API em:', baseUrl);
+    console.log('URL completa:', url);
+    
+    const response = await axios.post(url);
+    
+    const data = response.data;
+    setResults({
+      carbon_saved: data.carbonFootprint,
+      trees_equivalent: Math.round(data.carbonFootprint * 0.45),
+      revenue_potential: Math.round(data.carbonFootprint * 150)
+    });
+  } catch (error) {
+    console.error('Error calculating carbon:', error);
+    // Agora a url existe aqui também
+    console.log('Tentou chamar (se disponível):', typeof url !== 'undefined' ? url : 'URL não definida');
+  } finally {
+    setIsCalculating(false);
+  }
+};
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
