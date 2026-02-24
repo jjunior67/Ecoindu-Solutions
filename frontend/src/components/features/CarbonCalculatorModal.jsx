@@ -10,7 +10,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const CarbonCalculatorModal = ({ isOpen, onClose }) => {
   const [wasteAmount, setWasteAmount] = useState(100);
-  const [energyUsage, setEnergyUsage] = useState(500);
+  // REMOVIDO: const [energyUsage, setEnergyUsage] = useState(500);
   const [results, setResults] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
@@ -19,40 +19,37 @@ const CarbonCalculatorModal = ({ isOpen, onClose }) => {
       calculateCarbon();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wasteAmount, energyUsage, isOpen]);
+  }, [wasteAmount, isOpen]); // REMOVIDO: energyUsage da dependência
 
-const calculateCarbon = async () => {
-  setIsCalculating(true);
-  try {
-    // IMPORTANTE: Em desenvolvimento, backend roda na porta 8000
-    // Em produção (Vercel), usa a mesma URL
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? 'http://localhost:8000'  // Porta do backend
-      : window.location.origin;    // URL do Vercel em produção
-    
-    // PRIMEiro define a URL
-    const url = `${baseUrl}/api/calcular-carbono?waste_amount=${wasteAmount}&energy_usage=${energyUsage}`;
-    
-    // DEPOIS usa no console.log
-    console.log('Chamando API em:', baseUrl);
-    console.log('URL completa:', url);
-    
-    const response = await axios.post(url);
-    
-    const data = response.data;
-    setResults({
-      carbon_saved: data.carbonFootprint,
-      trees_equivalent: Math.round(data.carbonFootprint * 0.45),
-      revenue_potential: Math.round(data.carbonFootprint * 150)
-    });
-  } catch (error) {
-    console.error('Error calculating carbon:', error);
-    // Agora a url existe aqui também
-    console.log('Tentou chamar (se disponível):', typeof url !== 'undefined' ? url : 'URL não definida');
-  } finally {
-    setIsCalculating(false);
-  }
-};
+  const calculateCarbon = async () => {
+    setIsCalculating(true);
+    try {
+      // IMPORTANTE: Em desenvolvimento, backend roda na porta 8000
+      // Em produção (Vercel), usa a mesma URL
+      const baseUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:8000'  // Porta do backend
+        : window.location.origin;    // URL do Vercel em produção
+      
+      // MODIFICADO: Removido energy_usage da URL
+      const url = `${baseUrl}/api/calcular-carbono?waste_amount=${wasteAmount}`;
+      
+      console.log('Chamando API em:', baseUrl);
+      console.log('URL completa:', url);
+      
+      const response = await axios.post(url);
+      
+      const data = response.data;
+      setResults({
+        carbon_saved: data.carbonFootprint,
+        trees_equivalent: Math.round(data.carbonFootprint * 0.45),
+        revenue_potential: Math.round(data.carbonFootprint * 150)
+      });
+    } catch (error) {
+      console.error('Error calculating carbon:', error);
+    } finally {
+      setIsCalculating(false);
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -63,15 +60,15 @@ const calculateCarbon = async () => {
             <span>Calculadora de Captura de Carbono</span>
           </DialogTitle>
           <DialogDescription>
-            Estime o potencial de captura de carbono e economia com suas opera\u00e7\u00f5es sustent\u00e1veis.
+            Estime o potencial de captura de carbono e economia com suas operações sustentáveis.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-8 py-6">
-          {/* Waste Amount Slider */}
+          {/* Waste Amount Slider - MANTIDO */}
           <div>
             <div className="flex justify-between items-center mb-3">
-              <Label className="text-base font-semibold">Res\u00edduos Mensais (Toneladas)</Label>
+              <Label className="text-base font-semibold">Resíduos Mensais (Toneladas)</Label>
               <span data-testid="waste-amount-display" className="text-xl font-bold text-accent">{wasteAmount}t</span>
             </div>
             <Slider
@@ -85,24 +82,9 @@ const calculateCarbon = async () => {
             />
           </div>
 
-          {/* Energy Usage Slider */}
-          <div>
-            <div className="flex justify-between items-center mb-3">
-              <Label className="text-base font-semibold">Consumo Energ\u00e9tico Mensal (MWh)</Label>
-              <span data-testid="energy-usage-display" className="text-xl font-bold text-accent">{energyUsage} MWh</span>
-            </div>
-            <Slider
-              data-testid="energy-slider"
-              value={[energyUsage]}
-              onValueChange={(value) => setEnergyUsage(value[0])}
-              min={50}
-              max={5000}
-              step={50}
-              className="w-full"
-            />
-          </div>
+          {/* REMOVIDO: Bloco completo do Energy Usage Slider */}
 
-          {/* Results */}
+          {/* Results - MANTIDO */}
           <AnimatePresence mode="wait">
             {results && (
               <motion.div
@@ -120,7 +102,7 @@ const calculateCarbon = async () => {
                     <div className="text-sm font-semibold text-muted-foreground">Carbono Capturado</div>
                   </div>
                   <div className="text-3xl font-bold text-primary">{results.carbon_saved} t</div>
-                  <div className="text-xs text-muted-foreground mt-1">CO\u2082 por m\u00eas</div>
+                  <div className="text-xs text-muted-foreground mt-1">CO\2 por mês</div>
                 </div>
 
                 <div data-testid="result-card-trees" className="bg-white rounded-sm p-6 technical-border">
@@ -128,10 +110,10 @@ const calculateCarbon = async () => {
                     <div className="w-10 h-10 rounded-sm bg-accent/10 flex items-center justify-center">
                       <TreePine className="text-accent-foreground" size={20} />
                     </div>
-                    <div className="text-sm font-semibold text-muted-foreground">\u00c1rvores Equivalentes</div>
+                    <div className="text-sm font-semibold text-muted-foreground">Árvores Equivalentes</div>
                   </div>
                   <div className="text-3xl font-bold text-primary">{results.trees_equivalent}</div>
-                  <div className="text-xs text-muted-foreground mt-1">\u00e1rvores plantadas</div>
+                  <div className="text-xs text-muted-foreground mt-1">Árvores plantadas</div>
                 </div>
 
                 <div data-testid="result-card-revenue" className="bg-white rounded-sm p-6 technical-border md:col-span-2">
@@ -143,9 +125,9 @@ const calculateCarbon = async () => {
                   </div>
                   <div className="flex items-baseline space-x-2">
                     <div className="text-3xl font-bold text-primary">R$ {results.revenue_potential.toLocaleString('pt-BR')}</div>
-                    <div className="text-sm text-muted-foreground">por m\u00eas</div>
+                    <div className="text-sm text-muted-foreground">por mês</div>
                   </div>
-                  <div className="text-xs text-muted-foreground mt-1">Baseado em cr\u00e9ditos de carbono e valoriza\u00e7\u00e3o de res\u00edduos</div>
+                  <div className="text-xs text-muted-foreground mt-1">Baseado em créditos de carbono e valorização de resíduos</div>
                 </div>
               </motion.div>
             )}
@@ -153,7 +135,7 @@ const calculateCarbon = async () => {
 
           <div className="bg-accent/10 rounded-sm p-4 border border-accent/20">
             <p className="text-sm text-foreground">
-              <strong>Importante:</strong> Estes s\u00e3o c\u00e1lculos estimados. Para uma avalia\u00e7\u00e3o precisa e or\u00e7amento detalhado, agende uma visita t\u00e9cnica.
+              <strong>Importante:</strong> Estes são cáculos estimados. Para uma avaliacão precisa e orçamento detalhado, agende uma visita técnica.
             </p>
           </div>
         </div>

@@ -117,7 +117,7 @@ async def calculate_carbon(waste_amount: float, energy_usage: float):
 @api_router.post("/calcular-carbono")
 async def calcular_carbono(
     waste_amount: float = Query(..., description="Quantidade de resíduos em kg"),
-    energy_usage: float = Query(..., description="Consumo de energia em kWh")
+    energy_usage: Optional[float] = Query(0, description="Consumo de energia em kWh (opcional)")
 ):
     """
     Calcula a pegada de carbono baseado em resíduos e consumo de energia
@@ -134,7 +134,7 @@ async def calcular_carbono(
         "message": f"Emissão estimada: {round(resultado, 2)} kg CO₂e",
         "details": {
             "from_waste": round(waste_amount * fator_residuo, 2),
-            "from_energy": round(energy_usage * fator_energia, 2)
+            "from_energy": round(energy_usage * fator_energia, 2)if energy_usage else 0
         }
     }
 
@@ -142,7 +142,7 @@ async def calcular_carbono(
 @api_router.get("/calcular-carbono")
 async def calcular_carbono_get(
     waste_amount: float = Query(..., description="Quantidade de resíduos em kg"),
-    energy_usage: float = Query(..., description="Consumo de energia em kWh")
+    energy_usage: Optional[float] = Query(0, description="Consumo de energia em kWh (opcional)")
 ):
     """Versão GET para teste direto no navegador"""
     return await calcular_carbono(waste_amount, energy_usage)
