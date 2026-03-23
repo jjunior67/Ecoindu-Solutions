@@ -11,9 +11,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Na Vercel, o caminho do arquivo já define a rota. 
-# Se o arquivo é api/calcular-carbono.py, use "/" aqui:
-@app.post("/")
+@app.get("/")
 async def calcular_carbon(waste_amount: float = Query(...)):
     carbon_footprint = waste_amount * 2.5
     
