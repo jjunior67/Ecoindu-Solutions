@@ -6,7 +6,7 @@ import { Leaf, TrendingUp, DollarSign, TreePine } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 
 const CarbonCalculatorModal = ({ isOpen, onClose }) => {
   const [wasteAmount, setWasteAmount] = useState(100);
@@ -36,7 +36,11 @@ const CarbonCalculatorModal = ({ isOpen, onClose }) => {
       console.log('Chamando API em:', baseUrl);
       console.log('URL completa:', url);
       
-      const response = await axios.post(url);
+const response = await axios.get(`${baseUrl}/api/calcular-carbono`, {
+  params: {
+    waste_amount: wasteAmount
+  }
+});
       
       const data = response.data;
       setResults({
