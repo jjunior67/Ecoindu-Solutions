@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Configurar CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -12,12 +11,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/api/calcular-carbono")
+# Na Vercel, o caminho do arquivo já define a rota. 
+# Se o arquivo é api/calcular-carbono.py, use "/" aqui:
+@app.post("/")
 async def calcular_carbon(waste_amount: float = Query(...)):
-    """
-    Calcula captura de carbono baseado na quantidade de resíduos
-    """
-    # Fórmula: 1 tonelada de resíduo = 2.5 toneladas CO2 capturado
     carbon_footprint = waste_amount * 2.5
     
     return {
