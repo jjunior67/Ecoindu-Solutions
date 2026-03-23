@@ -102,7 +102,7 @@ const CarbonCalculatorModal = ({ isOpen, onClose }) => {
                     <div className="text-sm font-semibold text-muted-foreground">Carbono Capturado</div>
                   </div>
                   <div className="text-3xl font-bold text-primary">{results.carbon_saved} t</div>
-                  <div className="text-xs text-muted-foreground mt-1">CO\2 por mês</div>
+                  <div className="text-xs text-muted-foreground mt-1">CO2 por mês</div>
                 </div>
 
                 <div data-testid="result-card-trees" className="bg-white rounded-sm p-6 technical-border">
